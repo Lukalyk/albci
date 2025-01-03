@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Abundant Life Bible Church International - ABLBCI</title>
+	<link rel="stylesheet" href="styles.css">
+	<script src="script.js"></script>
+	<script src="https://maps.google.com/maps/api/js?key=API_KEY&callback=initMap" async defer></script>
+</head>
+<body>
+	<header>
+		<div class="container">
+			<h1>Abundant Life Bible Church International</h1>
+			<nav>
+				<ul>
+					<li><a href="index.html">Home</li>
+					<li><a href="mission.html">Mission</li>
+					<li><a href="worship-schedule.html">Worship Schedule</li>
+					<li><a href="media.html">Media</li>
+					<li><a href="about.html">About</li>
+					<li><a href="contact.html">Contact Us</li>
+					<li><a href="familyoffaith.html" class="branches-navbar-btn">Active Branch</li>
+					</a>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<div class="theme-card">
+		<p><strong> 2025 Theme: </strong> "Divine Opportunities (Kairos)"</p>
+	</div>
+
+	<section id="welcome" class="section">
+		<div class="container">
+			<h2>Welcome to Our Church</h2>
+			<p>We are a community committed to spreading the love and teachings of Jesus Christ. Come as you are, 
+			and experience His grace.</p>
+		</div>
+	</section>
+
+	<section id="mission" class="section">
+		<div class="container">
+			<h2>Our Mission</h2>
+			<p>Our mission is to bring hope to the hopeless and empower believers to live victorious lives in Christ.</p>
+		</div>
+	</section>
+
+	<section id="join-us" class="section">
+		<div class="container">
+			<h2>Become a Member</h2>
+			<p>Looking for a spiritual home? Learn how you can become a member of our church family and grow in faith with us.</p>
+		</div>
+
+		<div class="container">
+			<button class="btn" id="show-location">Join Us</button>
+		</div>
+	</section>
+
+	<section id="map-container" class="container" style="display: none; margin-top: 30px;">
+		<h3>Our Church Location</h3>
+		<div id="map" style="width:100%; height: 400px;"></div>
+	</section>
+
+	<section id="events" class="section">
+		<div class="container">
+			<h2>Contact Us</h2>
+			<p>Reach out to us for inquiries or prayer requests. Jesus is here for you. We're here for you.</p>
+		</div>
+	</section>
+
+	<footer>
+		<div class="container">
+			<h2>Support Our Mission</h2>
+			<h3>The New Building Project</h3>
+
+			<script src="https://js.stripe.com/v3/"></script>
+			<form action="process_donation.php" method="POST">
+				<label for="donation-amout">Donation Amount (GHS): </label>
+				<input type="number" id="donation-amount" name="donation_amount" placeholder="Enter amount" required>
+
+				<label for="payment-method">Payment Method</label>
+				<select id="payment-method" name="payment_method" required>
+					<option value="method">Choose method</option>
+					<option value="mobile-money">Mobile Money</option>
+					<option value="debit-card">Debit/Credit Card</option>
+				</select>
+
+				<div id="mobile-money-options" style="display: none;">
+					<label for="mobile-provider">Select Mobile Money Provider: </label>
+					<select id="mobile-provider" name="mobile_provider">
+						<option value="">Choose Provider</option>
+						<option value="mtn">MTN</option>
+						<option value="telecel">Telecel</option>
+						<option value="airteltigo">AirtelTigo</option>
+					</select>
+				</div>
+
+				<div id="stripe-fields" style="display: none;">
+					<!--Insert Stripe Element Here-->
+					<div id="card-element"></div>
+				</div>
+
+				<div id="mobile-money-info" style="display: none;">
+					<label for="mobile-number">Mobile Money Number: </label>
+					<input type="text" id="mobile-number" name="mobile_number" placeholder="Enter your mobile number">
+				</div>
+
+				<div id="card-info" style="display: none;">
+					<label for="card-number">Card Number: </label>
+					<input type="text" id="card-number" name="card_number" placeholder="Enter your card number" required>
+
+					<label for="card-expiry">Expiry Date(MM/YY): </label>
+					<input type="text" id="card-expiry" name="card_expiry" placeholder="MM/YY" required>
+
+					<label for="card-cvc">CVC: </label>
+					<input type="text" id="card-cvc" name="card-cvc" placeholder="CVC" required>
+				</div>
+
+				<div class="notice">
+					<p><strong>*Mobile Money and its Providers are strictly for Ghanaians only.</strong></p>
+					<p><strong>*Please ignore Mobile Money Providers area when Debit/Credit Card is chosen</strong></p>
+
+				<div id="card-element">
+					<!--Stripe Element-->
+				</div>
+
+				<button type="submit">Donate</button>
+			</form>
+
+			<script>
+				const paymentMethodSelect = document.getElementById('payment-method');
+				const mobileMoneyOptions = document.getElementById('mobile-money-options');
+				const stripeFields = document.getElementById('stripe-fields');
+				const mobileProviderSelect = document.getElementById('mobile-provider');
+
+				paymentMethodSelect.addEventListener('change', function(){
+					const selectedPaymentMethod = paymentMethodSelect.value;
+
+					if(selectedPaymentMethod === 'mobile-money'){
+						mobileMoneyOptions.style.display = 'block';
+						stripeFields.style.display = 'none';
+					} else if(selectedPaymentMethod === 'stripe'){
+						stripeFields.style.display = 'block';
+						mobileMoneyOptions.style.display = 'none;'
+					} else if(selectedPaymentMethod === 'method'){
+						mobileMoneyOptions.styl.display = 'none';
+						stripeFields.style.display = 'none';
+					} else{
+						mobileMoneyOptions.styl.display = 'none';
+						stripeFields.style.display = 'none';
+					}
+				});
+
+				document.getElementById('payment-method').addEventListener('change', function(){
+					var paymentMethod = this.value;
+					if(paymentMethod === 'mobile-money'){
+						document.getElementById('mobile-money-info').style.display = 'block';
+
+						document.getElementById('card-info').style.display = 'none';
+					} else if(paymentMethod === 'debit-card'){
+						document.getElementById('mobile-money-info').style.display = 'none';
+
+						document.getElementById('card-info').style.display = 'block';
+					}
+				});
+
+				var stripe = Stripe('STRIPE_PUBLISHABLE_KEY');
+				var elements = stripe.elements();
+				var card = elements.create('card');
+				card.mount('#card-element');
+
+				document.getElementById('donation-form').addEventListener('submit', function(event){
+					event.preventDefault();
+
+					stripe.createToken(card).then(function(result){
+						if(result.error){
+							console.log(result.error.message);
+						} else{
+							var form = document.getElementById('donation-form');
+							var hiddenInput = document.createElement('input');
+							hiddenInput.setAttribute('type', 'hidden');
+							hiddenInput.setAttribute('name', 'stripeToken');
+							hiddenInput.setAttribute('value', result.token.id);
+							form.appendChild(hiddenInput);
+
+							form.submit();
+						}
+					});
+				});
+			</script> 
+		</div>
+
+		<p>&copy; 2025 ALBCI. All Rights Reserved!</p>
+	</footer>
+
+	<script src="script.js"></script>
+	<script src="https://maps.google.com/maps/api/js?key=API_KEY&callback=initMap" async defer></script>
+</body>
+</html>

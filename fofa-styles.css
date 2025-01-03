@@ -1,0 +1,137 @@
+body{
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
+	color: #333;
+}
+
+.branch-container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	max-width: 100%;
+}
+
+.branch-header{
+	text-align: center;
+	margin-bottom: 20px;
+	padding: 20px;
+	background-color: goldenrod;
+	color: black;
+	border-radius: 5px;
+	width: 100%;
+}
+
+.branch-header h1{
+	font-size: 24px;
+	margin: 0 0 10px;
+}
+
+.branch-header p{
+	margin: 0;
+}
+
+.branch-details{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 20px;
+	width: 100%;
+}
+
+.card{
+	background-color: #fff;
+	border-radius: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 15px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card h2{
+	margin-top: 0;
+	color: goldenrod;
+}
+
+.card p{
+	margin: 5px 0;
+}
+
+
+.card:hover{
+	transform: scale(1.05);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.theme-card{
+	top: 60px;
+	width: 65%;
+	max-width: 500px;
+	margin: 20px auto;
+	background-color: lightblue;
+	color: black;
+	text-align: center;
+	font-size: 1.2rem;
+	font-weight: bold;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-card:hover{
+	transform: translateY(-5px);
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.resident-pastor{
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.resident-pastor .card{
+	max-width: 400px;
+	text-align: center;
+}
+
+.pastor-photo{
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin: 15px 0;
+	border: 3px solid goldenrod;
+}
+
+.branch-footer{
+	margin-top: 20px;
+	text-align: center;
+	padding: 10px;
+	background-color: #333;
+	color: #fff;
+	border-radius: 5px;
+	width: 100%;
+}
+
+.branch-footer p{
+	margin: 0;
+	font-size: 14px;
+}
+
+@media(max-width: 600px){
+	.branch-header h1{
+		font-size: 18px;
+	}
+
+	.card{
+		padding: 10px;
+	}
+
+	.branch-footer p{
+		font-size: 12px;
+	}
+}
